@@ -1,0 +1,23 @@
+{
+    "name": "alex19pov31/bitrix-date-helper",
+    "description": "Bitrix datetime helper",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "bitrix",
+    ],
+    "authors": [
+        {
+            "name": "Nesterov Alexander",
+            "email": "alex19pov31@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Alex19pov31\\BitrixDateHelper\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0"
+    }
+}
