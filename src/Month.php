@@ -76,8 +76,16 @@ class Month
         $timestamp = $now->getTimestamp();
         for ($i = 1; $i <= 12; $i++) {
             $list[$i] = new static(
-                DateTime::createFromFormat('d.m.Y H:i:s', date('01.' . $i . '.' . $year . ' 00:00:00')),
-                static::getLastDayInMonth('d.m.Y H:i:s', date('01.' . $i . '.' . $year . ' 23:59:59')),
+                DateTime::createFromFormat(
+                    'd.m.Y H:i:s', 
+                    date('01.' . $i . '.' . $year . ' 00:00:00')
+                ),
+                static::getLastDayInMonth(
+                    DateTime::createFromFormat(
+                        'd.m.Y H:i:s', 
+                        date('01.' . $i . '.' . $year . ' 23:59:59')
+                    )
+                ),
                 (string)$nameList[$i],
                 $i
             );
