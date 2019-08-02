@@ -34,4 +34,9 @@ trait IntervalTrait
         $strDate = $date->format('Y-m-t H:i:s');
         return DateTime::createFromFormat('Y-m-d H:i:s', $strDate);
     }
+
+    private static function formatNum(int $num): string
+    {
+        return $num < 10 ? '0'.$num : $num;
+    }
 }

@@ -78,12 +78,12 @@ class Month
             $list[$i] = new static(
                 DateTime::createFromFormat(
                     'd.m.Y H:i:s', 
-                    date('01.' . $i . '.' . $year . ' 00:00:00')
+                    date('01.' . static::formatNum($i) . '.' . $year . ' 00:00:00')
                 ),
                 static::getLastDayInMonth(
                     DateTime::createFromFormat(
                         'd.m.Y H:i:s', 
-                        date('01.' . $i . '.' . $year . ' 23:59:59')
+                        date('01.' . static::formatNum($i) . '.' . $year . ' 23:59:59')
                     )
                 ),
                 (string)$nameList[$i],

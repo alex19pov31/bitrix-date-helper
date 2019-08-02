@@ -71,9 +71,18 @@ class Quarter
         $now = DateTime::now();
         $timestamp = $now->getTimestamp();
         for ($i = 1; $i < 12; $i += 3) {
+
             $list[] = new static(
-                DateTime::createFromFormat('d.m.Y H:i:s', date('01.' . $i . '.' . $year . ' 00:00:00', $timestamp)),
-                static::getLastDayInMonth('d.m.Y H:i:s', date('01.' . ($i + 2) . '.' . $year . ' 23:59:59', $timestamp)),
+                DateTime::createFromFormat(
+                    'd.m.Y H:i:s', 
+                    date('01.' . static::formatNum($i) . '.' . $year . ' 00:00:00', $timestamp)
+                ),
+                static::getLastDayInMonth(
+                    DateTime::createFromFormat(
+                        'd.m.Y H:i:s', 
+                        date('01.' . static::formatNum($i+2) . '.' . $year . ' 23:59:59')
+                    )
+                ),
                 $num++
             );
         }

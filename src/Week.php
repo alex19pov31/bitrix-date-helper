@@ -2,8 +2,6 @@
 namespace Alex19pov31\BitrixDateHelper;
 
 use Alex19pov31\BitrixDateHelper\Traits\IntervalTrait;
-use DateTime;
-use Bitrix\Main\Type\DateTime as BitrixDateTime;
 
 class Week
 {
@@ -14,12 +12,12 @@ class Week
     public function __construct(DateTime $date)
     {
         $dayOfWeek = (int)$date->format('N');
-        $from = $date->sub(new \DateInterval('P' . ($dayOfWeek - 1) . 'D'));
-        $this->from = new DateTime($from->format('Y-m-d 00:00:00'));
-        $this->to = new DateTime($from->format('Y-m-d 23:59:59'));
+        $from = $date->subDays($dayOfWeek - 1);
+        $this->from = new DateTime($from->format('Y-m-d 00:00:00'), 'Y-m-d H:i:s');
+        $this->to = new DateTime($from->format('Y-m-d 23:59:59'), 'Y-m-d H:i:s');
         for ($i = 1; $i <= 7; $i++) {
             $this->dayList[$i] = new Day($this->to);
-            $this->to->add(new \DateInterval('P1D'));
+            $this->to->addDays(1);
         }
     }
 
@@ -27,6 +25,8 @@ class Week
     {
         return (int)$this->num;
     }
+
+
 
     public function getName(): string
     {
@@ -40,6 +40,76 @@ class Week
     public function getDayByNum(int $num)
     {
         return $this->dayList[$num];
+    }
+    
+    /**
+     * Понедельник
+     *
+     * @return Day|null
+     */
+    public function getMonday()
+    {
+        return $this->getDayByNum(1);
+    }
+
+    /**
+     * Вторник
+     *
+     * @return Day|null
+     */
+    public function getTuesday()
+    {
+        return $this->getDayByNum(2);
+    }
+
+    /**
+     * Среда
+     *
+     * @return Day|null
+     */
+    public function getWednesday()
+    {
+        return $this->getDayByNum(3);
+    }
+
+    /**
+     * Четверг
+     *
+     * @return Day|null
+     */
+    public function getThursday()
+    {
+        return $this->getDayByNum(4);
+    }
+
+    /**
+     * Пятница
+     *
+     * @return Day|null
+     */
+    public function getFriday()
+    {
+        return $this->getDayByNum(5);
+    }
+
+    /**
+     * Суббота
+     *
+     * @return Day|null
+     */
+    public function getSaturday()
+    {
+        return $this->getDayByNum(6);
+    }
+
+    /**
+     * Воскресенье
+     *
+     * @return Day|null
+     */
+    public function getSunday()
+    {
+        return $this->getDayByNum(7);
     }
 
     /**
@@ -75,13 +145,13 @@ class Week
 
     public function getPrevWeek(int $count = 1): Week
     {
-        $day = $this->from->sub(new \DateInterval('P' . ($count * 7) . 'D'));
-        return new static($day);
+        $date = $this->from->subWeeks(1);
+        return new static($date);
     }
 
     public function getNextWeek(int $count = 1): Week
     {
-        $day = $this->from->add(new \DateInterval('P' . ($count * 7) . 'D'));
-        return new static($day);
+        $date = $this->from->addWeeks(1);
+        return new static($date);
     }
 }
